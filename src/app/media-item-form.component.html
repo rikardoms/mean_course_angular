@@ -1,0 +1,41 @@
+<header>
+    <h2>Add media to watch</h2>    
+</header>
+<form 
+    [formGroup]="form"
+    (ngSubmit)="onSubmit(form.value)">
+    <ul>
+        <li>
+            <label for="medium">Medium</label>
+            <select name="medium" id="Medium" formControlName="medium">
+                <option *ngFor="let medium of lookupLists.mediums" value="{{medium}}">{{medium}}</option>
+            </select>
+        </li>
+        <li>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" formControlName="name">
+            <div *ngIf="form.controls.name.errors?.pattern" class="error">
+                    Name has invalid characters
+                  </div>
+        </li>
+        <li>
+            <label for="category">Category</label>
+            <select name="category" id="category" formControlName="category">
+                <option value="Action">Action</option>
+                <option value="Science Fiction">Science Fiction</option>
+                <option value="Drama">Drama</option>
+            </select>
+        </li>
+        <li>
+            <label for="year">Year</label>
+            <input type="text" name="year" id="year" maxlength="4" size="5" formControlName="year">
+            <div *ngIf="form.controls.year.errors?.year" class="error">
+                    Must be between 
+                    {{form.controls.year.errors?.year.min}} 
+                    and 
+                    {{form.controls.year.errors?.year.max}}
+                  </div>
+        </li>
+    </ul>
+    <button type="submit" [disabled]="!form.valid">Save Data</button>
+</form>
